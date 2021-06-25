@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}home{% endblock title%}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}"/>  
+<form method="POST" class="post-form" action="/">  
+    {% csrf_token %}  
+<div class="container">  
+<br>  
+<div class="form-group row">  
+<label class="col-sm-1 col-form-label"></label>  
+<div class="col-sm-4">  
+<h3>Enter Details</h3>  
+</div>  
+</div>  
+<div class="form-group row">  
+<label class="col-sm-2 col-form-label">Employee Code:</label>  
+<div class="col-sm-4">  
+  {{ form.empcode}}  
+</div>  
+</div>  
+<div class="form-group row">  
+<label class="col-sm-2 col-form-label">Employee Name:</label>  
+<div class="col-sm-4">  
+  {{ form.empname }}  
+</div>  
+</div>  
+<div class="form-group row">  
+<label class="col-sm-2 col-form-label">Employee Email:</label>  
+<div class="col-sm-4">  
+  {{ form.empemail }}  
+</div>  
+</div>  
+<div class="form-group row">  
+<label class="col-sm-2 col-form-label">Employee Contact:</label>  
+<div class="col-sm-4">  
+  {{ form.empactive }}  
+</div>  
+</div>  
+<div class="form-group row">  
+<label class="col-sm-1 col-form-label"></label>  
+<div class="col-sm-4">  
+<button type="submit" class="btn btn-primary">Submit</button>  
+</div>  
+</div>  
+</div>
+</form>
+{% if employees|length == 0 %}
+<div class="alert alert-info mt-4" role="alert">
+    No employee details available!
+  </div>
+{% else %}
+<div class="container mt-4">
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">SNo</th>
+        <th scope="col">Employee Code</th>
+        <th scope="col">Employee Name</th>
+        <th scope="col">Email ID</th>
+        <th scope="col">Isactive</th>
+        <th scope="col">Operation</th>
+      </tr>
+    </thead>
+    {% for employee in employees %}
+        
+   
+    <tbody>
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{employee.empcode}}</td>
+        <td>{{employee.empname}}</td>
+        <td>{{employee.empemail}}</td>
+        <td>{{employee.empactive}}</td>
+        <td><a href="/delete/{{ employee.id }}"><button class="btn btn-small btn-danger" title="Delete">Delete</button></a></td>
+        <td><a href="/edit/{{ employee.id }}"><button class="btn btn-success btn-small">Update</button></a></td>
+      </tr>
+      </tbody>
+      {% endfor %}
+  </table>
+</div>
+{% endif %}
+{% endblock content %}

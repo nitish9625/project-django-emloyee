@@ -1,0 +1,23 @@
+input {
+    width: 400px;
+    height: 30px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+select#id_empactive {
+    width: 400px;
+    height: 30px;
+    border: 1px solid;
+    border-radius: 4px;
+}
+button.btn.btn-primary {
+    margin-left: 200px;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+}
+h3{
+    text-align: center;
+    margin-left: 200px;
+    margin-right: -100px;
+}

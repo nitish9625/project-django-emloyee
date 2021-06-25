@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}login{% endblock title%}
+{% block content %}
+
+<div class="container mt-4 border rounded p-4" style="width:40%;">
+    <h3 class="border rounded mx-auto mb-4 p-2" style="text-align: center;">login page</h3>
+    <form action="/accounts/login/" method="POST">{% csrf_token %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-danger" role="alert">
+        {{message}}
+      </div>
+      {% endfor %}
+      {% endif %}
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Enter email">
+          </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+</div>
+{% endblock content %}

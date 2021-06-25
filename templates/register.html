@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+</head>
+<style>
+    .container{
+        margin-left: 500px;
+        margin-top: 10px;
+        width: 550px;
+        height: 400px;
+        padding-top: 30px;
+    }
+    h3{
+        font-size: 30px;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: underline;
+
+    }
+    form{
+        border: 1px solid;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        border-radius: 5px;
+    }
+    input{
+        width: 400px;
+        padding: 10px 30px;
+        text-align: center;
+        border: 2px solid blue;
+        border-radius: 4px;
+    }
+    label{
+        font-size: 20px;
+        text-align: center;
+        font-weight: 600;
+        font-family: 'Times New Roman', Times, serif;
+        padding: 20px 0 20px 0;
+        text-transform: capitalize;
+    }
+    button{
+        padding: 10px 40px;
+        margin-left: 150px;
+        background-color: rgb(45, 151, 71);
+        border: 2px solid rgb(45, 151, 71);
+        border-radius: 5px;
+    }
+    a{
+      font-size: 20px;
+      padding-left: 20px;
+    }
+    span{
+        color: red;
+    }
+</style>
+<body>
+    <div class="container">
+        <h3>registration form</h3>
+    <form action="/accounts/register/" method="POST" method="POST" autocomplete="off" onsubmit="return validation()">
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-danger" role="alert">
+        <h1 style="color: red;">{{message}}</h1>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% csrf_token %}
+        <label>Fisrt name</label>
+        <input type="text" name="first-name" id="fname" placeholder="first name" required><br>
+        <b><span id="sfname"></span></b><br>
+        <label>Last name</label>
+        <input type="text" name="last-name" id="lname" placeholder="last name"><br>
+        <b><span id="slname"></span></b>
+        <label>userName</label>
+        <input type="text" name="username" id="user" placeholder="username" required><br>
+        <b><span id="suser"></span></b><br>
+        <label>Email</label>
+        <input type="email" name="email" id="femail" placeholder="email" required><br>
+        <b><span id="sfemail"></span></b><br>
+        <label>Password</label>
+        <input type="password" name="password1" id="pass" placeholder="password" required><br>
+        <b><span id="passw"></span></b><br>
+        <label>confirm Password</label>
+        <input type="password" name="password2" id="cpass" placeholder=" confirm password"><br>
+        <b><span id="scpass"></span></b>
+        <br>
+        <button type="submit">register</button>
+        <a href="/accounts/login">Login Here</a>
+    </form>
+</div>
+<script>
+    function validation(){
+        var pass = document.getElementById("pass").value;
+        var fname = document.getElementById('fname').value;
+        var user = document.getElementById('user').value;
+        var email = document.getElementById('femail').value;
+        var confirmpass = document.getElementById('cpass').value;
+        if(fname.length<5){
+            document.getElementById('sfname').innerHTML="* first name is too small!";
+            return false
+        }
+        else{
+            document.getElementById('sfname').innerHTML=""; 
+        }
+        if(user.length<5){
+            document.getElementById('suser').innerHTML="* user name is too small!";
+            return false
+        }
+        else{
+            document.getElementById('suser').innerHTML=""; 
+        }
+        if(email.length>30){
+            document.getElementById('sfemail').innerHTML="* email is too large!";
+            return false
+        }
+        else{
+            document.getElementById('sfemail').innerHTML=""; 
+        }
+        if(pass==""){
+            document.getElementById('passw').innerHTML="* password cann't be blank!";
+            return false
+        }
+        if(pass.length<8){
+            document.getElementById('passw').innerHTML="* password is greater than 8 charater!";
+            return false
+        }
+        if(pass.search(/[0-9]/)==-1){
+            document.getElementById('passw').innerHTML="* password contain atleast 1 numeric number!";
+            return false
+        }
+        if(pass.search(/[a-z]/)==-1){
+            document.getElementById('passw').innerHTML="* password contain atleast 1 lower character number!";
+            return false
+        }
+        if(pass.search(/[A-Z]/)==-1){
+            document.getElementById('passw').innerHTML="* password contain atleast 1 upper character number!";
+            return false
+        }
+        if(pass.search(/[!\@\#\$\%\^\&\*\(\)\_\-\+\=\<\,\>\?]/)==-1){
+            document.getElementById('passw').innerHTML="* password contain atleast 1 special character number!";
+            return false
+        }
+        else{
+            document.getElementById('passw').innerHTML=""; 
+        }
+        if(confirmpass!=pass){
+            document.getElementById('scpass').innerHTML="* comfirm password and password should be match!";
+            return false
+        }
+        else{
+            document.getElementById('scpass').innerHTML=""; 
+        }
+
+    }
+</script>
+</body>
+</html>
